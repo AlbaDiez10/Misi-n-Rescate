@@ -1,0 +1,208 @@
+[gd_scene load_steps=14 format=3 uid="uid://c77l2jinysuuf"]
+
+[ext_resource type="Script" path="res://scripts/Refugio.gd" id="1_88jmh"]
+[ext_resource type="Texture2D" uid="uid://cpauyuxkhy83k" path="res://assets/fondo mascota.png" id="2_w4sqw"]
+[ext_resource type="Texture2D" uid="uid://c5j6rhh5o824r" path="res://assets/sprites/Dana/Dana_sentada.png" id="3_70c5k"]
+[ext_resource type="Texture2D" uid="uid://3ly08l8u54on" path="res://assets/sprites/Dana/tarjeta dana.png" id="4_ohkxd"]
+[ext_resource type="Texture2D" uid="uid://bbs3u1f16sgw" path="res://assets/sprites/botones/historia.png" id="5_f8pka"]
+[ext_resource type="Texture2D" uid="uid://d8w1aapywsjc" path="res://assets/sprites/botones/botoncerrar.png" id="5_id3oy"]
+[ext_resource type="Texture2D" uid="uid://dx4sdr3lg2pht" path="res://assets/sprites/botones/Boton_comida.png" id="7_wmg4w"]
+[ext_resource type="Texture2D" uid="uid://baxjeekw2y272" path="res://assets/sprites/botones/Boton_agua.png" id="8_y33mq"]
+[ext_resource type="Texture2D" uid="uid://bkoaida443y0w" path="res://assets/sprites/botones/Boton_bañar.png" id="9_t3f27"]
+[ext_resource type="Texture2D" uid="uid://c72mn77vqvsg3" path="res://assets/sprites/botones/Boton_jugar.png" id="10_fv2up"]
+[ext_resource type="Texture2D" uid="uid://baxmbd8papqi3" path="res://assets/sprites/botones/Boton_adopcion.png" id="11_q6bnm"]
+[ext_resource type="Texture2D" uid="uid://ch1x5233gk774" path="res://assets/sprites/Botones apretados o descativados/adopcion no.png" id="12_i5fgw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1nwjd"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Refugio" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_88jmh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_w4sqw")
+expand_mode = 5
+
+[node name="Dana" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 727.0
+offset_right = 16.0
+offset_bottom = 751.0
+scale = Vector2(31.0023, 14.5925)
+texture_normal = ExtResource("3_70c5k")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -578.0
+offset_right = 304.0
+offset_bottom = 632.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = 120.0
+offset_right = 96.0
+offset_bottom = -238.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_ohkxd")
+expand_mode = 5
+
+[node name="TextureButton" type="TextureButton" parent="Menu"]
+layout_mode = 0
+offset_left = 242.0
+offset_top = 278.0
+offset_right = 714.0
+offset_bottom = 652.0
+texture_normal = ExtResource("5_f8pka")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="cerrar" type="TextureButton" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.853
+anchor_top = 0.304
+anchor_right = 0.853
+anchor_bottom = 0.304
+offset_left = -85.4771
+offset_top = -36.84
+offset_right = 85.5229
+offset_bottom = 36.16
+texture_normal = ExtResource("5_id3oy")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Menu"]
+z_index = 1
+position = Vector2(1082, 559)
+scale = Vector2(0.290365, 0.283482)
+texture = ExtResource("3_70c5k")
+
+[node name="Dana2" type="TextureButton" parent="Menu"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 335.0
+offset_right = 21.0
+offset_bottom = 353.0
+scale = Vector2(31.0023, 14.5925)
+texture_normal = ExtResource("3_70c5k")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Comida" type="TextureButton" parent="Menu"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 598.0
+offset_right = 209.0
+offset_bottom = 749.0
+rotation = -0.0132329
+texture_normal = ExtResource("7_wmg4w")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Agua" type="TextureButton" parent="Menu"]
+layout_mode = 0
+offset_left = 225.0
+offset_top = 609.0
+offset_right = 401.0
+offset_bottom = 737.0
+texture_normal = ExtResource("8_y33mq")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Bañarse" type="TextureButton" parent="Menu"]
+layout_mode = 0
+offset_left = 409.0
+offset_top = 609.0
+offset_right = 585.0
+offset_bottom = 738.0
+texture_normal = ExtResource("9_t3f27")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Jugar" type="TextureButton" parent="Menu"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 746.0
+offset_right = 273.0
+offset_bottom = 867.0
+texture_normal = ExtResource("10_fv2up")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Adopcion" type="TextureButton" parent="Menu"]
+layout_mode = 0
+offset_left = 297.0
+offset_top = 738.0
+offset_right = 540.0
+offset_bottom = 898.0
+disabled = true
+texture_normal = ExtResource("11_q6bnm")
+texture_disabled = ExtResource("12_i5fgw")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BarraComida" type="ProgressBar" parent="Menu"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 1030.0
+offset_right = 569.0
+offset_bottom = 1124.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
+show_percentage = false
+
+[node name="BarraHigiene" type="ProgressBar" parent="Menu"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 875.0
+offset_right = 593.0
+offset_bottom = 969.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
+show_percentage = false
+
+[node name="BarraDiversion" type="ProgressBar" parent="Menu"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 677.0
+offset_right = 572.0
+offset_bottom = 771.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
+show_percentage = false
+
+[connection signal="pressed" from="Dana" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Menu/cerrar" to="." method="_on_cerrar_pressed"]

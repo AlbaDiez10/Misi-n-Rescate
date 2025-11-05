@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://tvh6ug7xumix"]
+
+[ext_resource type="Script" path="res://scripts/pantalla_principal.gd" id="1_xvfmy"]
+[ext_resource type="Texture2D" uid="uid://b80uonwe0dh82" path="res://assets/Fondo Pantalla Principal.jpeg" id="2_7aqmi"]
+[ext_resource type="Texture2D" uid="uid://bly2eld6c70xt" path="res://assets/super_boton-removebg-preview.png" id="3_mxiii"]
+[ext_resource type="Texture2D" uid="uid://cfwtw56b47n84" path="res://assets/sprites/botones/nivel 1.png" id="4_um1g6"]
+[ext_resource type="Texture2D" uid="uid://dlfqsf8lxyrxo" path="res://assets/sprites/Botones apretados o descativados/nivel apretado 1.png" id="5_vp4pd"]
+[ext_resource type="Texture2D" uid="uid://c6is30t527qpi" path="res://assets/sprites/botones/nivel 2.png" id="6_ijqdh"]
+[ext_resource type="Texture2D" uid="uid://cu86errquj3ab" path="res://assets/sprites/Botones apretados o descativados/nivel apretado 2.png" id="7_mesdl"]
+[ext_resource type="Texture2D" uid="uid://0msepw7fpl1g" path="res://assets/sprites/botones/nivel 3.png" id="8_n3v1v"]
+[ext_resource type="Texture2D" uid="uid://b0pm23l5w4gej" path="res://assets/sprites/Botones apretados o descativados/nivel 3 apretado.png" id="9_3yf0i"]
+
+[node name="Pantalla Principal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xvfmy")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_7aqmi")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="boton xd" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = -14.0
+offset_top = 249.0
+offset_right = 231.0
+offset_bottom = 374.0
+texture_normal = ExtResource("3_mxiii")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton2" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 972.0
+offset_right = 719.0
+offset_bottom = 1097.0
+texture_normal = ExtResource("3_mxiii")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton3" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = -14.0
+offset_top = 730.0
+offset_right = 231.0
+offset_bottom = 855.0
+texture_normal = ExtResource("3_mxiii")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton4" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 481.0
+offset_top = 395.0
+offset_right = 726.0
+offset_bottom = 520.0
+texture_normal = ExtResource("3_mxiii")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Nivel 1" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 946.0
+offset_right = 441.0
+offset_bottom = 1123.0
+texture_normal = ExtResource("4_um1g6")
+texture_pressed = ExtResource("5_vp4pd")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Nivel 2" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 291.0
+offset_top = 621.0
+offset_right = 441.0
+offset_bottom = 775.0
+texture_normal = ExtResource("6_ijqdh")
+texture_pressed = ExtResource("7_mesdl")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Nivel 3" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 315.0
+offset_right = 454.0
+offset_bottom = 472.0
+texture_normal = ExtResource("8_n3v1v")
+texture_pressed = ExtResource("9_3yf0i")
+ignore_texture_size = true
+stretch_mode = 4
+
+[connection signal="pressed" from="boton xd" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="TextureButton2" to="." method="_on_texture_button_2_pressed"]
+[connection signal="pressed" from="TextureButton3" to="." method="_on_texture_button_3_pressed"]
+[connection signal="pressed" from="TextureButton4" to="." method="_on_texture_button_4_pressed"]
+[connection signal="pressed" from="Nivel 1" to="." method="_on_nivel_1_pressed"]
+[connection signal="pressed" from="Nivel 2" to="." method="_on_nivel_2_pressed"]
+[connection signal="pressed" from="Nivel 3" to="." method="_on_nivel_3_pressed"]

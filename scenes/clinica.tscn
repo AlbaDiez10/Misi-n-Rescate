@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://ptvq0pocurmw"]
+
+[ext_resource type="Texture2D" uid="uid://cfjldetwwqu0m" path="res://assets/sprites/clinica.png" id="1_1wcae"]
+[ext_resource type="Texture2D" uid="uid://ufj18uldtni7" path="res://assets/sprites/clinica sin coso.png" id="2_hq364"]
+[ext_resource type="Texture2D" uid="uid://bhrtsoc7etuby" path="res://assets/sprites/coso de clinica.png" id="3_cwih7"]
+
+[node name="Clinica" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1wcae")
+expand_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_hq364")
+expand_mode = 5
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 252.0
+offset_top = 297.0
+offset_right = 558.0
+offset_bottom = 628.0
+texture_normal = ExtResource("3_cwih7")
+ignore_texture_size = true
+stretch_mode = 0
