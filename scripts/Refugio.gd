@@ -4,6 +4,7 @@ extends Control
 
 @onready var panel_menu = $Menu
 @onready var boton_dana = $Dana
+@onready var historia = $Historia
 
 # Timer central (si no existe en escena se crea en _ready)
 var stat_timer : Timer = null
@@ -12,6 +13,24 @@ var stat_timer : Timer = null
 var animals : Dictionary = {}
 
 func _ready():
+	Global.cargar_datos()
+	if Global.nivel1 == "desactivado":
+		boton_dana.visible = true
+	# Recorre todos los nodos dentro de este Control (incluyendo subnodos)
+	_aplicar_click_masks(self)
+
+func _aplicar_click_masks(nodo: Node):
+	for child in nodo.get_children():
+		if child is TextureButton and child.texture_normal:
+			var bitmap := BitMap.new()
+			bitmap.create_from_image_alpha(child.texture_normal.get_image(), 0.5)
+			child.texture_click_mask = bitmap
+		# 🔁 Si el hijo tiene más nodos dentro, seguir recorriendo
+		if child.get_child_count() > 0:
+			_aplicar_click_masks(child)
+
+	Global.cargar_datos()
+	print("Nivel actual:", Global.nivel1)
 	# Buscá un Timer llamado "StatTimer", si no existe lo creamos
 	if has_node("StatTimer"):
 		stat_timer = $StatTimer
@@ -32,7 +51,7 @@ func _ready():
 			"diversion": $"Menu/BarraDiversion"
 		},
 		{ "comida": 100.0, "higiene": 100.0, "diversion": 100.0 },
-		{ "comida": 1.0, "higiene": 10.2, "diversion": 5.5 }
+		{ "comida": 1.0, "higiene": 0.2, "diversion": 0.5 }
 	)
 
 	# Ejemplo: para arrancar el timer desde código:
@@ -45,10 +64,7 @@ func _ready():
 # Funciones para el menú
 # -------------------------
 func _on_texture_button_pressed():
-	if panel_menu:
-		panel_menu.visible = true
-	if boton_dana:
-		boton_dana.visible = false
+	historia.visible = true
 
 func _on_cerrar_pressed():
 	if panel_menu:
@@ -183,3 +199,18 @@ func actualizar_barra_visual(bar: ProgressBar, current: float, max_value: float)
 		bar.set_meta("fill_style_override", newbox)
 
 
+
+
+func _on_texture_button_4_pressed():
+	get_tree().change_scene_to_file("res://scenes/Menu_niveles.tscn")
+
+
+func _on_cerrar_historiadana_pressed():
+	historia.visible = false
+
+
+func _on_dana_pressed():
+	if panel_menu:
+		panel_menu.visible = true
+	if boton_dana:
+		boton_dana.visible = false

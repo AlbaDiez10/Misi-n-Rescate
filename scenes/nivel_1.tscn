@@ -1,7 +1,113 @@
-[gd_scene format=3 uid="uid://cfj1p4nsavhu4"]
+[gd_scene load_steps=8 format=3 uid="uid://bbrpusavmtbjg"]
+
+[ext_resource type="Script" path="res://scripts/nivel_1.gd" id="1_8l3wu"]
+[ext_resource type="Texture2D" uid="uid://djbo1pfcui5d4" path="res://assets/Nivel 1/nivel 1.png" id="2_fu5qs"]
+[ext_resource type="Texture2D" uid="uid://fyitww712ewt" path="res://assets/Nivel 1/Nivel 1.jpeg" id="3_wndt8"]
+[ext_resource type="FontFile" uid="uid://dflf6hi73clnm" path="res://assets/font/retropix.otf/retropix.otf" id="4_jmrsg"]
+[ext_resource type="Texture2D" uid="uid://bgaxje0x21b2p" path="res://assets/Nivel 1/Rescate_dana1.png" id="5_7risi"]
+[ext_resource type="Texture2D" uid="uid://ucv1tuem083v" path="res://assets/Nivel 1/rescate_dana_texto2.png" id="6_e2l1f"]
+[ext_resource type="Texture2D" uid="uid://c7y3fpde84hio" path="res://assets/sprites/botones/Boton_rescatar.png" id="7_rvwmy"]
 
 [node name="Nivel 1" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8l3wu")
+
+[node name="Fondo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_wndt8")
+
+[node name="Fondo_text" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fu5qs")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 86.0
+offset_right = 640.0
+offset_bottom = 395.0
+theme_override_fonts/font = ExtResource("4_jmrsg")
+theme_override_font_sizes/font_size = 45
+autowrap_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Rescate_dana" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_7risi")
+expand_mode = 5
+
+[node name="Rescate_dana2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -39.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_e2l1f")
+expand_mode = 5
+
+[node name="BotonContinuar" type="Button" parent="."]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 1097.0
+offset_right = 644.0
+offset_bottom = 1214.0
+theme_override_fonts/font = ExtResource("4_jmrsg")
+theme_override_font_sizes/font_size = 60
+text = "Toca para continuar"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 398.0
+offset_right = 575.0
+offset_bottom = 807.0
+theme_override_fonts/font = ExtResource("4_jmrsg")
+theme_override_font_sizes/font_size = 20
+text = "Dana, una perrita curiosa y juguetona, encontro comida en la calle ...
+pero estaba envenenada.
+Se sintió muy mal, perdió fuerzas y necesitó ayuda urgente.
+Tu misión comienza aquí: aprender a cuidar, salvar animales
+y darles una segunda oportunidad"
+autowrap_mode = 1
+
+[node name="Rescatar" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 441.0
+offset_top = 697.0
+offset_right = 717.0
+offset_bottom = 904.0
+texture_normal = ExtResource("7_rvwmy")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="BotonContinuar" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Rescatar" to="." method="_on_texture_button_2_pressed"]

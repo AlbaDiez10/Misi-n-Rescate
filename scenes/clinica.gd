@@ -3,8 +3,6 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Global.nivel1 = "activado"
-	Global.guardar_datos()
 	for boton in get_children():
 		if boton is TextureButton and boton.texture_normal:
 			var bitmap := BitMap.new()
@@ -15,5 +13,5 @@ func _ready():
 
 
 
-func _on_texture_button_pressed():
+func _on_menu_princil_pressed():
 	get_tree().change_scene_to_file("res://scenes/Menu_niveles.tscn")

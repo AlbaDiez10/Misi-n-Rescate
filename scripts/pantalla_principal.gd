@@ -3,13 +3,15 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+	var nivel1 = $Nivel_1
+	Global.cargar_datos()
+	if Global.nivel1 == "desactivado":
+		nivel1.disabled = true
+	for boton in get_children():
+		if boton is TextureButton and boton.texture_normal:
+			var bitmap := BitMap.new()
+			bitmap.create_from_image_alpha(boton.texture_normal.get_image(), 0.5)
+			boton.texture_click_mask = bitmap
 
 func _on_texture_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/Refugio.tscn")

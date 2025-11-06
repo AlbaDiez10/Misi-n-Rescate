@@ -1,17 +1,26 @@
-[gd_scene load_steps=14 format=3 uid="uid://c77l2jinysuuf"]
+[gd_scene load_steps=17 format=3 uid="uid://c77l2jinysuuf"]
 
 [ext_resource type="Script" path="res://scripts/Refugio.gd" id="1_88jmh"]
 [ext_resource type="Texture2D" uid="uid://cpauyuxkhy83k" path="res://assets/fondo mascota.png" id="2_w4sqw"]
 [ext_resource type="Texture2D" uid="uid://c5j6rhh5o824r" path="res://assets/sprites/Dana/Dana_sentada.png" id="3_70c5k"]
+[ext_resource type="Texture2D" uid="uid://dnesxjrtjwbbr" path="res://assets/sprites/botones/Menu_principal.png" id="4_2m7jp"]
 [ext_resource type="Texture2D" uid="uid://3ly08l8u54on" path="res://assets/sprites/Dana/tarjeta dana.png" id="4_ohkxd"]
 [ext_resource type="Texture2D" uid="uid://bbs3u1f16sgw" path="res://assets/sprites/botones/historia.png" id="5_f8pka"]
 [ext_resource type="Texture2D" uid="uid://d8w1aapywsjc" path="res://assets/sprites/botones/botoncerrar.png" id="5_id3oy"]
-[ext_resource type="Texture2D" uid="uid://dx4sdr3lg2pht" path="res://assets/sprites/botones/Boton_comida.png" id="7_wmg4w"]
-[ext_resource type="Texture2D" uid="uid://baxjeekw2y272" path="res://assets/sprites/botones/Boton_agua.png" id="8_y33mq"]
+[ext_resource type="Texture2D" uid="uid://ce8qnlroetp8" path="res://assets/sprites/Gemini_Generated_Image_jif4cjjif4cjjif4.png" id="7_ukfe1"]
 [ext_resource type="Texture2D" uid="uid://bkoaida443y0w" path="res://assets/sprites/botones/Boton_bañar.png" id="9_t3f27"]
 [ext_resource type="Texture2D" uid="uid://c72mn77vqvsg3" path="res://assets/sprites/botones/Boton_jugar.png" id="10_fv2up"]
 [ext_resource type="Texture2D" uid="uid://baxmbd8papqi3" path="res://assets/sprites/botones/Boton_adopcion.png" id="11_q6bnm"]
 [ext_resource type="Texture2D" uid="uid://ch1x5233gk774" path="res://assets/sprites/Botones apretados o descativados/adopcion no.png" id="12_i5fgw"]
+[ext_resource type="Texture2D" uid="uid://d2l3y3hj2cid" path="res://assets/sprites/Dana/historia_Dana.png" id="13_jigat"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5t3fi"]
+atlas = ExtResource("7_ukfe1")
+region = Rect2(460, 110, 240, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1y5q4"]
+atlas = ExtResource("7_ukfe1")
+region = Rect2(450, 330, 250, 220)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1nwjd"]
 border_width_left = 2
@@ -44,6 +53,7 @@ texture = ExtResource("2_w4sqw")
 expand_mode = 5
 
 [node name="Dana" type="TextureButton" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 3.0
 offset_top = 727.0
@@ -54,7 +64,22 @@ texture_normal = ExtResource("3_70c5k")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="Menu_princiál" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_top = 964.0
+offset_right = 360.0
+offset_bottom = 1435.0
+grow_horizontal = 2
+texture_normal = ExtResource("4_2m7jp")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="Menu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -73,10 +98,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = 120.0
-offset_right = 96.0
-offset_bottom = -238.0
+offset_left = -89.0
+offset_top = 83.0
+offset_right = 103.0
+offset_bottom = -115.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_ohkxd")
@@ -116,9 +141,9 @@ texture = ExtResource("3_70c5k")
 [node name="Dana2" type="TextureButton" parent="Menu"]
 layout_mode = 0
 offset_left = 11.0
-offset_top = 335.0
+offset_top = 362.0
 offset_right = 21.0
-offset_bottom = 353.0
+offset_bottom = 380.0
 scale = Vector2(31.0023, 14.5925)
 texture_normal = ExtResource("3_70c5k")
 ignore_texture_size = true
@@ -126,51 +151,51 @@ stretch_mode = 0
 
 [node name="Comida" type="TextureButton" parent="Menu"]
 layout_mode = 0
-offset_left = 33.0
-offset_top = 598.0
-offset_right = 209.0
-offset_bottom = 749.0
+offset_left = 11.0
+offset_top = 637.0
+offset_right = 140.0
+offset_bottom = 727.0
 rotation = -0.0132329
-texture_normal = ExtResource("7_wmg4w")
+texture_normal = SubResource("AtlasTexture_5t3fi")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Agua" type="TextureButton" parent="Menu"]
 layout_mode = 0
-offset_left = 225.0
-offset_top = 609.0
-offset_right = 401.0
-offset_bottom = 737.0
-texture_normal = ExtResource("8_y33mq")
+offset_left = 11.0
+offset_top = 746.0
+offset_right = 140.0
+offset_bottom = 852.0
+texture_normal = SubResource("AtlasTexture_1y5q4")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Bañarse" type="TextureButton" parent="Menu"]
 layout_mode = 0
-offset_left = 409.0
-offset_top = 609.0
-offset_right = 585.0
-offset_bottom = 738.0
+offset_left = 1028.0
+offset_top = 612.0
+offset_right = 1204.0
+offset_bottom = 741.0
 texture_normal = ExtResource("9_t3f27")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Jugar" type="TextureButton" parent="Menu"]
 layout_mode = 0
-offset_left = 97.0
-offset_top = 746.0
-offset_right = 273.0
-offset_bottom = 867.0
+offset_left = -52.0
+offset_top = 852.0
+offset_right = 124.0
+offset_bottom = 973.0
 texture_normal = ExtResource("10_fv2up")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Adopcion" type="TextureButton" parent="Menu"]
 layout_mode = 0
-offset_left = 297.0
-offset_top = 738.0
-offset_right = 540.0
-offset_bottom = 898.0
+offset_left = 1103.0
+offset_top = 847.0
+offset_right = 1346.0
+offset_bottom = 1007.0
 disabled = true
 texture_normal = ExtResource("11_q6bnm")
 texture_disabled = ExtResource("12_i5fgw")
@@ -179,30 +204,77 @@ stretch_mode = 0
 
 [node name="BarraComida" type="ProgressBar" parent="Menu"]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 1030.0
-offset_right = 569.0
-offset_bottom = 1124.0
+offset_left = 165.0
+offset_top = 637.0
+offset_right = 609.0
+offset_bottom = 707.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
 show_percentage = false
 
 [node name="BarraHigiene" type="ProgressBar" parent="Menu"]
 layout_mode = 0
-offset_left = 34.0
-offset_top = 875.0
-offset_right = 593.0
-offset_bottom = 969.0
+offset_left = 165.0
+offset_top = 902.0
+offset_right = 607.0
+offset_bottom = 972.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
 show_percentage = false
 
 [node name="BarraDiversion" type="ProgressBar" parent="Menu"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 677.0
-offset_right = 572.0
-offset_bottom = 771.0
+offset_left = 165.0
+offset_top = 773.0
+offset_right = 609.0
+offset_bottom = 843.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
 show_percentage = false
 
-[connection signal="pressed" from="Dana" to="." method="_on_texture_button_pressed"]
+[node name="Historia" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -578.0
+offset_right = 304.0
+offset_bottom = 632.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Historia_img" type="TextureRect" parent="Historia"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -89.0
+offset_top = 83.0
+offset_right = 103.0
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_jigat")
+expand_mode = 5
+
+[node name="cerrar_historiadana" type="TextureButton" parent="Historia"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.853
+anchor_top = 0.304
+anchor_right = 0.853
+anchor_bottom = 0.304
+offset_left = -508.477
+offset_top = 534.16
+offset_right = -337.477
+offset_bottom = 607.16
+texture_normal = ExtResource("5_id3oy")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="Dana" to="." method="_on_dana_pressed"]
+[connection signal="pressed" from="Menu_princiál" to="." method="_on_texture_button_4_pressed"]
+[connection signal="pressed" from="Menu/TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="Menu/cerrar" to="." method="_on_cerrar_pressed"]
+[connection signal="pressed" from="Historia/cerrar_historiadana" to="." method="_on_cerrar_historiadana_pressed"]
