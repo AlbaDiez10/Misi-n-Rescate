@@ -51,7 +51,7 @@ func _ready():
 	_inicializar_animales() 
 	_simular_tiempo_pasado()
 	_iniciar_timer_global()
-	resetear_clinica_para_prueba()
+	#resetear_clinica_para_prueba()
 	print("🌍 Global cargado y corriendo.")
 
 # ------------------------------
