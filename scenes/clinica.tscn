@@ -1,10 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://ptvq0pocurmw"]
+[gd_scene load_steps=12 format=3 uid="uid://cmsrvm3g0md55"]
 
 [ext_resource type="Texture2D" uid="uid://cfjldetwwqu0m" path="res://assets/sprites/clinica.png" id="1_1wcae"]
-[ext_resource type="Script" path="res://scenes/clinica.gd" id="1_nyuwb"]
+[ext_resource type="Script" path="res://scripts/clinica.gd" id="1_au8xu"]
 [ext_resource type="Texture2D" uid="uid://ufj18uldtni7" path="res://assets/sprites/clinica sin coso.png" id="2_hq364"]
 [ext_resource type="Texture2D" uid="uid://bhrtsoc7etuby" path="res://assets/sprites/coso de clinica.png" id="3_cwih7"]
 [ext_resource type="Texture2D" uid="uid://dnesxjrtjwbbr" path="res://assets/sprites/botones/Menu_principal.png" id="5_vgasl"]
+[ext_resource type="Texture2D" uid="uid://b7pptg7shkgno" path="res://assets/sprites/botones/Boton_Clinica.png" id="6_xka2h"]
+[ext_resource type="Texture2D" uid="uid://bxyi7siyb51nt" path="res://assets/sprites/botones/Boton_salud_clinica.png" id="7_5b58q"]
+[ext_resource type="Texture2D" uid="uid://ct68fwt4mepd8" path="res://assets/sprites/Dana/Dana Antidoto.png" id="7_p4mky"]
+[ext_resource type="Texture2D" uid="uid://c5j6rhh5o824r" path="res://assets/sprites/Dana/Dana_sentada.png" id="8_sfjrh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpfig"]
+atlas = ExtResource("6_xka2h")
+region = Rect2(270, 91, 1000, 344)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xoth3"]
+atlas = ExtResource("6_xka2h")
+region = Rect2(270, 552.5, 1000, 347.625)
 
 [node name="Clinica" type="Control"]
 layout_mode = 3
@@ -13,7 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nyuwb")
+script = ExtResource("1_au8xu")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -35,7 +47,7 @@ grow_vertical = 2
 texture = ExtResource("2_hq364")
 expand_mode = 5
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="Boton_Ficha_medica" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 252.0
 offset_top = 297.0
@@ -45,7 +57,7 @@ texture_normal = ExtResource("3_cwih7")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Menu_princiál" type="TextureButton" parent="."]
+[node name="Boton_Menu_princiál" type="TextureButton" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -59,4 +71,62 @@ texture_normal = ExtResource("5_vgasl")
 ignore_texture_size = true
 stretch_mode = 0
 
-[connection signal="pressed" from="Menu_princiál" to="." method="_on_menu_princil_pressed"]
+[node name="Boton_suero" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 917.0
+offset_right = 661.0
+offset_bottom = 1053.0
+texture_normal = SubResource("AtlasTexture_tpfig")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Boton_suero2" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 43.0
+offset_right = 1103.0
+offset_bottom = 417.0
+texture_normal = ExtResource("7_p4mky")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Boton_salud_clinica" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 86.0
+offset_top = 889.0
+offset_right = 701.0
+offset_bottom = 1217.0
+texture_normal = ExtResource("7_5b58q")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Boton_antidoto" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.028
+offset_left = 181.0
+offset_top = 1027.0
+offset_right = 563.84
+offset_bottom = 1223.0
+texture_normal = SubResource("AtlasTexture_xoth3")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Dana_clinica" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 167.0
+offset_top = 464.0
+offset_right = 180.0
+offset_bottom = 488.0
+scale = Vector2(31.0023, 14.5925)
+texture_normal = ExtResource("8_sfjrh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="Boton_Menu_princiál" to="." method="_on_menu_princil_pressed"]
+[connection signal="pressed" from="Boton_suero" to="." method="_on_boton_suero_pressed"]
+[connection signal="pressed" from="Boton_suero2" to="." method="_on_boton_suero_pressed"]
+[connection signal="pressed" from="Boton_salud_clinica" to="." method="_on_boton_salud_clinica_pressed"]
+[connection signal="pressed" from="Boton_antidoto" to="." method="_on_boton_antidoto_pressed"]

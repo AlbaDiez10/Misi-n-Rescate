@@ -1,216 +1,286 @@
 extends Control
-# Script para manejar barras (comida, higiene, diversión) y un Timer central.
-# Reutilizable para varios "animales" (cada animal tiene su propio set de barras).
+# Refugio.gd - UI + máscaras + botones. No reduce stats; usa Global.modify_stat()
 
+# NODOS
 @onready var panel_menu = $Menu
 @onready var boton_dana = $Dana
+@onready var dana_sprite_menu = $Menu/Dana2
 @onready var historia = $Historia
+@onready var boton_menu = $"Menu_princiál"
 
-# Timer central (si no existe en escena se crea en _ready)
-var stat_timer : Timer = null
+# BARRAS
+@onready var barra_comida = $"Menu/BarraComida"
+@onready var barra_banarse = $"Menu/BarraBanarse"
+@onready var barra_salud = $"Menu/BarraSalud"
 
-# Estructura para animales:
+# Duraciones de animaciones (en segundos)
+const TIEMPO_COMER := 2.5
+const TIEMPO_BANARSE := 3.0
+
+# Referencias a botones de acción
+@onready var boton_comida = $"Menu/Boton_Comida"
+@onready var boton_banarse = $"Menu/Boton_Bañarse"
+
 var animals : Dictionary = {}
 
 func _ready():
-	Global.cargar_datos()
-	if Global.nivel1 == "desactivado":
-		boton_dana.visible = true
-	# Recorre todos los nodos dentro de este Control (incluyendo subnodos)
+	if not Global.stats_animales.has("Dana"):
+		print("Dana no ha sido rescatada, ocultando UI.")
+		boton_dana.visible = false
+		panel_menu.visible = false
+		# Opcional: Ocultar barras si no queremos verlas
+		barra_comida.visible = false
+		barra_banarse.visible = false
+		barra_salud.visible = false
+		return # Detenemos la ejecución si no hay Dana
+	# asegurar keys unificadas
+	Global._load() if Engine.is_editor_hint() else null
 	_aplicar_click_masks(self)
 
-func _aplicar_click_masks(nodo: Node):
-	for child in nodo.get_children():
-		if child is TextureButton and child.texture_normal:
-			var bitmap := BitMap.new()
-			bitmap.create_from_image_alpha(child.texture_normal.get_image(), 0.5)
-			child.texture_click_mask = bitmap
-		# 🔁 Si el hijo tiene más nodos dentro, seguir recorriendo
-		if child.get_child_count() > 0:
-			_aplicar_click_masks(child)
-
-	Global.cargar_datos()
-	print("Nivel actual:", Global.nivel1)
-	# Buscá un Timer llamado "StatTimer", si no existe lo creamos
-	if has_node("StatTimer"):
-		stat_timer = $StatTimer
-	else:
-		stat_timer = Timer.new()
-		stat_timer.name = "StatTimer"
-		add_child(stat_timer)
-	# Conectar señal timeout al método que actualiza stats
-	if not stat_timer.is_connected("timeout", Callable(self, "_on_stat_timer_timeout")):
-		stat_timer.timeout.connect(_on_stat_timer_timeout)
-
-	# EJEMPLO: registrar al animal "Dana" (cambia rutas si tus nodos están en otra parte)
+	# registrar mapping local (solo referencias UI)
 	register_animal(
 		"Dana",
 		{
-			"comida": $"Menu/BarraComida",
-			"higiene": $"Menu/BarraHigiene",
-			"diversion": $"Menu/BarraDiversion"
+			"comida": barra_comida,
+			"banarse": barra_banarse,
+			"salud": barra_salud
 		},
-		{ "comida": 100.0, "higiene": 100.0, "diversion": 100.0 },
-		{ "comida": 1.0, "higiene": 0.2, "diversion": 0.5 }
+		{
+			"comida": Global.max_values.get("comida", 100.0),
+			"banarse": Global.max_values.get("banarse", 100.0),
+			"salud": Global.max_values.get("salud", 100.0)
+		},
+		{
+			"comida": Global.rates.get("comida", 0.1),
+			"banarse": Global.rates.get("banarse", 0.1),
+			"salud": 0.0
+		}
 	)
 
-	# Ejemplo: para arrancar el timer desde código:
-	set_stat_timer_interval(1.0)
-	start_stat_timer()
-	pass
+	# Aplicar valores guardados en Global a las barras
+	_actualizar_ui_desde_global()
+
+	# refresco visual (no modifica stats)
+	var refresco = Timer.new()
+	refresco.wait_time = 1.0
+	refresco.one_shot = false
+	refresco.autostart = true
+	refresco.timeout.connect(_actualizar_ui_desde_global)
+	add_child(refresco)
+	
+	# --- NUEVO TIMER PARA EL ESTADO DE DANA (ej. 3.0s) ---
+	var timer_dana_mood = Timer.new()
+	timer_dana_mood.wait_time = 25.0
+	timer_dana_mood.one_shot = false
+	timer_dana_mood.autostart = true
+	# Conectamos directamente a la función que cambia la imagen
+	timer_dana_mood.timeout.connect(actualizar_imagen_dana) 
+	add_child(timer_dana_mood)
+	
+	actualizar_imagen_dana()
 
 
-# -------------------------
-# Funciones para el menú
-# -------------------------
+# Click masks recursivo
+func _aplicar_click_masks(nodo: Node) -> void:
+	for child in nodo.get_children():
+		if child is TextureButton and child.texture_normal:
+			var bmp := BitMap.new()
+			bmp.create_from_image_alpha(child.texture_normal.get_image(), 0.5)
+			child.texture_click_mask = bmp
+		if child.get_child_count() > 0:
+			_aplicar_click_masks(child)
+
+# Sincroniza UI desde Global (no altera valores)
+func _actualizar_ui_desde_global():
+	if not Global.stats_animales.has("Dana"):
+		return
+	var s = Global.stats_animales["Dana"]
+	actualizar_barra_visual(barra_comida, float(s.get("comida", 0.0)), Global.max_values.get("comida", 100.0))
+	actualizar_barra_visual(barra_banarse, float(s.get("banarse", 0.0)), Global.max_values.get("banarse", 100.0))
+	actualizar_barra_visual(barra_salud, float(s.get("salud", 0.0)), Global.max_values.get("salud", 100.0))
+
+
+func _bloquear_botones(estado: bool) -> void:
+	if boton_comida:
+		boton_comida.disabled = estado
+	if boton_banarse:
+		boton_banarse.disabled = estado
+
+# Visual style
+func actualizar_barra_visual(bar: ProgressBar, current: float, max_value: float) -> void:
+	if bar == null or max_value <= 0:
+		return
+	bar.min_value = 0
+	bar.max_value = max_value
+	bar.value = clamp(current, 0.0, max_value)
+	var pct = bar.value / max_value
+	var color = Color.GREEN
+	if pct < 0.5:
+		color = Color.YELLOW
+	if pct < 0.25:
+		color = Color.RED
+	var sb = bar.get_theme_stylebox("fill")
+	if sb and sb is StyleBoxFlat:
+		var dup = sb.duplicate() as StyleBoxFlat
+		dup.bg_color = color
+		bar.add_theme_stylebox_override("fill", dup)
+
+# Registro local (solo para referencias UI)
+func register_animal(id: String, bars: Dictionary, max_values: Dictionary, rates: Dictionary) -> void:
+	animals[id] = {
+		"bars": bars.duplicate(true),
+		"max": max_values.duplicate(true),
+		"rates": rates.duplicate(true),
+		"current": {} # no usado para lógica centralizada
+	}
+
+
+
+
+# BOTONES: usan Global.modify_stat()
+func _on_comida_pressed():
+	Global.modify_stat("Dana", "comida", 15.0)
+	_actualizar_ui_desde_global()
+	_bloquear_botones(true)
+	actualizar_imagen_dana("comiendo")
+
+	# 🔊 Lugar reservado para sonido de comer
+	# $SonidoComer.play()
+
+	await get_tree().create_timer(TIEMPO_COMER).timeout
+	_bloquear_botones(false)
+	actualizar_imagen_dana()  # vuelve a estado normal
+
+func _on_agua_pressed():
+	Global.modify_stat("Dana", "banarse", 30.0)
+	_actualizar_ui_desde_global()
+	_bloquear_botones(true)
+	actualizar_imagen_dana("banandose")
+
+	# 🔊 Lugar para sonido de baño
+	# $SonidoBanarse.play()
+	#await get_tree().create_timer(TIEMPO_COMER).timeout # Espera 2.5 segundos
+	_bloquear_botones(false)
+	actualizar_imagen_dana()
+
+func _on_jugar_pressed():
+	# opcional: mejorar salud si quieres
+	Global.modify_stat("Dana", "salud", 10.0)
+	_actualizar_ui_desde_global()
+
+# Menú / UI
 func _on_texture_button_pressed():
-	historia.visible = true
+	if historia:
+		historia.visible = true
 
 func _on_cerrar_pressed():
 	if panel_menu:
 		panel_menu.visible = false
 	if boton_dana:
+		boton_menu.visible = true
 		boton_dana.visible = true
 
-
-# -------------------------
-# Registro / gestión animales
-# -------------------------
-# bars: Dictionary de stat->Node (p. ej. "comida": $Menu/BarraComida)
-# max_values: Dictionary stat->float
-# rates: Dictionary stat->float (unidades por segundo)
-func register_animal(id: String, bars: Dictionary, max_values: Dictionary, rates: Dictionary) -> void:
-	if animals.has(id):
-		push_warning("Animal ya registrado: %s" % id)
-		return
-	var current := {}
-	for stat_name in max_values.keys():
-		current[stat_name] = float(max_values[stat_name])
-	# convertir rutas de nodos a referencias si es necesario
-	for stat_name in bars.keys():
-		var n = bars[stat_name]
-		if typeof(n) == TYPE_STRING:
-			if has_node(n):
-				bars[stat_name] = get_node(n)
-			else:
-				push_warning("Ruta de barra no encontrada: %s" % n)
-				bars[stat_name] = null
-	# Guardar
-	animals[id] = {
-		"bars": bars.duplicate(true),
-		"current": current,
-		"max": max_values.duplicate(true),
-		"rates": rates.duplicate(true)
-	}
-	# Inicializar visualmente las barras
-	for stat_name in bars.keys():
-		actualizar_barra_visual(bars[stat_name], current.get(stat_name, 0.0), max_values.get(stat_name, 0.0))
-
-
-# -------------------------
-# Timer control (configurable por vos)
-# -------------------------
-func set_stat_timer_interval(seconds: float) -> void:
-	if not stat_timer:
-		return
-	stat_timer.wait_time = seconds
-
-func start_stat_timer() -> void:
-	if not stat_timer:
-		return
-	stat_timer.one_shot = false
-	stat_timer.autostart = true
-	stat_timer.start()
-
-func stop_stat_timer() -> void:
-	if not stat_timer:
-		return
-	stat_timer.stop()
-
-
-# -------------------------
-# Lógica que corre en cada tick del Timer
-# -------------------------
-func _on_stat_timer_timeout() -> void:
-	if animals.is_empty():
-		return
-	var dt = stat_timer.wait_time
-	for id in animals.keys():
-		var data = animals[id]
-		for stat_name in data.rates.keys():
-			var rate = float(data.rates[stat_name])
-			var cur = float(data.current.get(stat_name, 0.0))
-			var mx = float(data.max.get(stat_name, 0.0))
-			# reducir
-			cur -= rate * dt
-			if cur < 0.0:
-				cur = 0.0
-			data.current[stat_name] = cur
-			# actualizar visualmente
-			var bar_node = data.bars.get(stat_name, null)
-			actualizar_barra_visual(bar_node, cur, mx)
-
-
-# -------------------------
-# Actualización visual de una barra (valor + color)
-# -------------------------
-func actualizar_barra_visual(bar: ProgressBar, current: float, max_value: float) -> void:
-	if bar == null:
-		return
-
-	if max_value <= 0:
-		return
-
-	# actualizar valores
-	bar.min_value = 0
-	bar.max_value = max_value
-	bar.value = clamp(current, 0.0, max_value)
-
-	# calcular porcentaje y color para ESTA barra
-	var porcentaje = 0.0
-	if max_value > 0:
-		porcentaje = bar.value / max_value
-
-	var color: Color = Color.GREEN
-	if porcentaje < 0.5:
-		color = Color.YELLOW
-	if porcentaje < 0.25:
-		color = Color.RED
-
-	# obtener el StyleBox original (puede ser compartido)
-	var stylebox: StyleBox = bar.get_theme_stylebox("fill")
-	if not stylebox or not (stylebox is StyleBoxFlat):
-		return
-
-	# Intentamos reutilizar un override ya creado (guardado en meta)
-	var override: StyleBoxFlat = null
-	if bar.has_meta("fill_style_override"):
-		override = bar.get_meta("fill_style_override")
-		if override and (override is StyleBoxFlat):
-			override.bg_color = color
-			bar.add_theme_stylebox_override("fill", override)
-			return
-
-	# Si no existe override, duplicamos el stylebox original y lo aplicamos
-	var newbox: StyleBoxFlat = stylebox.duplicate() as StyleBoxFlat
-	if newbox:
-		newbox.bg_color = color
-		bar.add_theme_stylebox_override("fill", newbox)
-		bar.set_meta("fill_style_override", newbox)
-
-
-
-
-func _on_texture_button_4_pressed():
-	get_tree().change_scene_to_file("res://scenes/Menu_niveles.tscn")
-
-
 func _on_cerrar_historiadana_pressed():
-	historia.visible = false
-
+	if historia:
+		historia.visible = false
 
 func _on_dana_pressed():
 	if panel_menu:
 		panel_menu.visible = true
+		boton_menu.visible = false
 	if boton_dana:
 		boton_dana.visible = false
+
+func _on_menu_princil_pressed():
+	get_tree().change_scene_to_file("res://scenes/Menu_niveles.tscn")
+
+# -------------------------
+# SISTEMA DE IMÁGENES DE DANA
+# -------------------------
+
+var rng := RandomNumberGenerator.new()
+
+func actualizar_imagen_dana(estado_forzado: String = ""):
+	var dana_textura: Texture
+	var ruta_base = "res://assets/sprites/Dana/"
+
+	# --- 1. Animaciones Forzadas (Comiendo, Bañandose) ---
+	if estado_forzado != "":
+		match estado_forzado:
+			"comiendo":
+				dana_textura = load(ruta_base + "Dana_comiendo.png")
+			"banandose":
+				dana_textura = load(ruta_base + "dana_bañada.png")
+		
+		# APLICAR TEXTURA CON CORRECCIÓN
+		if boton_dana:
+			# Si es un TextureButton (como lo es $Dana), usa texture_normal
+			if boton_dana is TextureButton:
+				boton_dana.texture_normal = dana_textura
+			else: # Si no lo es (por si acaso), usa .texture
+				boton_dana.texture = dana_textura
+				
+		if dana_sprite_menu:
+			# Asumiendo que dana_sprite_menu ($Menu/Dana2) es un TextureRect o similar
+			# Si no es un TextureButton, simplemente asigna .texture
+			if dana_sprite_menu is TextureButton:
+				dana_sprite_menu.texture_normal = dana_textura
+			else:
+				dana_sprite_menu.texture = dana_textura
+		return
+
+	# --- 2. Estados Normales Automáticos ---
+	if not Global.stats_animales.has("Dana"):
+		return
+
+	var stats = Global.stats_animales["Dana"]
+	var comida = stats.get("comida", 100.0)
+	var banarse = stats.get("banarse", 100.0)
+	var salud = stats.get("salud", 100.0)
+
+	# 🔸 Prioridad de estados: Enfermo > Sucio > Triste > Feliz/Descanso
+	if salud < 40:
+		dana_textura = load(ruta_base + "Dana_Enfermo.png")
+	elif banarse < 40 and comida < 40:
+		dana_textura = load(ruta_base + "Diana_sucio.png")
+	elif comida < 40:
+		dana_textura = load(ruta_base + "Dana_Tiste.png")
+	elif banarse < 40:
+		dana_textura = load(ruta_base + "Dana_agua.png")
+	else:
+		# Alternar aleatoriamente entre estados normales (Sentada, Feliz, Zzz)
+		var opciones = [
+			"Dana_sentada.png",
+			"Dana_zzz .png"
+		]
+		rng.randomize() # Asegura la aleatoriedad, aunque ya lo haces en _ready
+		var random_idx = rng.randi_range(0, opciones.size() - 1)
+		dana_textura = load(ruta_base + opciones[random_idx])
+
+	# APLICAR TEXTURA CON CORRECCIÓN
+	if boton_dana:
+		if boton_dana is TextureButton:
+			boton_dana.texture_normal = dana_textura
+		else:
+			boton_dana.texture = dana_textura
+			
+	if dana_sprite_menu:
+		if dana_sprite_menu is TextureButton:
+			dana_sprite_menu.texture_normal = dana_textura
+		else:
+			dana_sprite_menu.texture = dana_textura
+
+
+
+func _cambiar_textura_dana(ruta: String):
+	var tex = load(ruta)
+	if tex:
+		if boton_dana:
+			boton_dana.texture_normal = tex
+		if has_node("Menu/Dana2"):
+			$"Menu/Dana2".texture_normal = tex
+
+
+# -------------------------
+# ANIMACIONES DE ACCIONES (comer, bañarse)
+# -------------------------

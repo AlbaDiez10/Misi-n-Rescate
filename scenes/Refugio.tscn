@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bbs3u1f16sgw" path="res://assets/sprites/botones/historia.png" id="5_f8pka"]
 [ext_resource type="Texture2D" uid="uid://d8w1aapywsjc" path="res://assets/sprites/botones/botoncerrar.png" id="5_id3oy"]
 [ext_resource type="Texture2D" uid="uid://ce8qnlroetp8" path="res://assets/sprites/Gemini_Generated_Image_jif4cjjif4cjjif4.png" id="7_ukfe1"]
-[ext_resource type="Texture2D" uid="uid://bkoaida443y0w" path="res://assets/sprites/botones/Boton_bañar.png" id="9_t3f27"]
-[ext_resource type="Texture2D" uid="uid://c72mn77vqvsg3" path="res://assets/sprites/botones/Boton_jugar.png" id="10_fv2up"]
+[ext_resource type="Texture2D" uid="uid://36vf0hct4y54" path="res://assets/sprites/Dana/Dana Feliz.png" id="8_cfim4"]
+[ext_resource type="Texture2D" uid="uid://bofse4iytk2cn" path="res://assets/sprites/botones/Boton_Salud.png" id="9_q2erh"]
 [ext_resource type="Texture2D" uid="uid://baxmbd8papqi3" path="res://assets/sprites/botones/Boton_adopcion.png" id="11_q6bnm"]
 [ext_resource type="Texture2D" uid="uid://ch1x5233gk774" path="res://assets/sprites/Botones apretados o descativados/adopcion no.png" id="12_i5fgw"]
 [ext_resource type="Texture2D" uid="uid://d2l3y3hj2cid" path="res://assets/sprites/Dana/historia_Dana.png" id="13_jigat"]
@@ -53,7 +53,6 @@ texture = ExtResource("2_w4sqw")
 expand_mode = 5
 
 [node name="Dana" type="TextureButton" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 3.0
 offset_top = 727.0
@@ -107,7 +106,7 @@ grow_vertical = 2
 texture = ExtResource("4_ohkxd")
 expand_mode = 5
 
-[node name="TextureButton" type="TextureButton" parent="Menu"]
+[node name="Historia" type="TextureButton" parent="Menu"]
 layout_mode = 0
 offset_left = 242.0
 offset_top = 278.0
@@ -136,7 +135,7 @@ stretch_mode = 0
 z_index = 1
 position = Vector2(1082, 559)
 scale = Vector2(0.290365, 0.283482)
-texture = ExtResource("3_70c5k")
+texture = ExtResource("8_cfim4")
 
 [node name="Dana2" type="TextureButton" parent="Menu"]
 layout_mode = 0
@@ -149,7 +148,7 @@ texture_normal = ExtResource("3_70c5k")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Comida" type="TextureButton" parent="Menu"]
+[node name="Boton_Comida" type="TextureButton" parent="Menu"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 637.0
@@ -160,42 +159,32 @@ texture_normal = SubResource("AtlasTexture_5t3fi")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Agua" type="TextureButton" parent="Menu"]
+[node name="Boton_Bañarse" type="TextureButton" parent="Menu"]
 layout_mode = 0
 offset_left = 11.0
-offset_top = 746.0
+offset_top = 738.0
 offset_right = 140.0
-offset_bottom = 852.0
+offset_bottom = 844.0
 texture_normal = SubResource("AtlasTexture_1y5q4")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Bañarse" type="TextureButton" parent="Menu"]
+[node name="Boton_Salud" type="TextureButton" parent="Menu"]
 layout_mode = 0
-offset_left = 1028.0
-offset_top = 612.0
-offset_right = 1204.0
-offset_bottom = 741.0
-texture_normal = ExtResource("9_t3f27")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Jugar" type="TextureButton" parent="Menu"]
-layout_mode = 0
-offset_left = -52.0
-offset_top = 852.0
-offset_right = 124.0
-offset_bottom = 973.0
-texture_normal = ExtResource("10_fv2up")
+offset_left = -55.0
+offset_top = 820.0
+offset_right = 209.0
+offset_bottom = 1008.0
+texture_normal = ExtResource("9_q2erh")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Adopcion" type="TextureButton" parent="Menu"]
 layout_mode = 0
-offset_left = 1103.0
-offset_top = 847.0
-offset_right = 1346.0
-offset_bottom = 1007.0
+offset_left = 455.0
+offset_top = 519.0
+offset_right = 618.0
+offset_bottom = 644.0
 disabled = true
 texture_normal = ExtResource("11_q6bnm")
 texture_disabled = ExtResource("12_i5fgw")
@@ -211,21 +200,21 @@ offset_bottom = 707.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
 show_percentage = false
 
-[node name="BarraHigiene" type="ProgressBar" parent="Menu"]
+[node name="BarraBanarse" type="ProgressBar" parent="Menu"]
 layout_mode = 0
-offset_left = 165.0
-offset_top = 902.0
-offset_right = 607.0
-offset_bottom = 972.0
+offset_left = 162.0
+offset_top = 765.0
+offset_right = 604.0
+offset_bottom = 835.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
 show_percentage = false
 
-[node name="BarraDiversion" type="ProgressBar" parent="Menu"]
+[node name="BarraSalud" type="ProgressBar" parent="Menu"]
 layout_mode = 0
 offset_left = 165.0
-offset_top = 773.0
+offset_top = 888.0
 offset_right = 609.0
-offset_bottom = 843.0
+offset_bottom = 958.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
 show_percentage = false
 
@@ -274,7 +263,10 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [connection signal="pressed" from="Dana" to="." method="_on_dana_pressed"]
-[connection signal="pressed" from="Menu_princiál" to="." method="_on_texture_button_4_pressed"]
-[connection signal="pressed" from="Menu/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Menu_princiál" to="." method="_on_menu_princil_pressed"]
+[connection signal="pressed" from="Menu/Historia" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="Menu/cerrar" to="." method="_on_cerrar_pressed"]
+[connection signal="pressed" from="Menu/Boton_Comida" to="." method="_on_comida_pressed"]
+[connection signal="pressed" from="Menu/Boton_Bañarse" to="." method="_on_agua_pressed"]
+[connection signal="pressed" from="Menu/Boton_Salud" to="." method="_on_jugar_pressed"]
 [connection signal="pressed" from="Historia/cerrar_historiadana" to="." method="_on_cerrar_historiadana_pressed"]

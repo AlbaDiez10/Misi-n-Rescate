@@ -100,8 +100,15 @@ func _on_button_pressed():
 		1: transicion_fondo()
 		2: transicion_fondo2()
 
-
 func _on_texture_button_2_pressed():
-	Global.nivel1 = "desactivado"
+	# 💡 AJUSTE CLAVE: Creamos a Dana AHORA que ha sido rescatada
+	if not Global.stats_animales.has("Dana"):
+		Global.stats_animales["Dana"] = {
+			"comida": 50.0,  # 50%
+			"banarse": 70.0, # 70%
+			"salud": 10.0    # 10%
+		}
+	
+	Global.nivel1 = "desactivado" # Desactivamos el nivel para que no se repita
 	Global.guardar_datos()
 	get_tree().change_scene_to_file("res://scenes/Refugio.tscn")

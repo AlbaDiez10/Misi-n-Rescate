@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://tvh6ug7xumix"]
+[gd_scene load_steps=11 format=3 uid="uid://tvh6ug7xumix"]
 
 [ext_resource type="Script" path="res://scripts/pantalla_principal.gd" id="1_xvfmy"]
 [ext_resource type="Texture2D" uid="uid://b80uonwe0dh82" path="res://assets/Fondo Pantalla Principal.jpeg" id="2_7aqmi"]
-[ext_resource type="Texture2D" uid="uid://bly2eld6c70xt" path="res://assets/super_boton-removebg-preview.png" id="3_mxiii"]
 [ext_resource type="Texture2D" uid="uid://boey7mr71an40" path="res://assets/sprites/botones/mis rescatados.png" id="3_ogijq"]
 [ext_resource type="Texture2D" uid="uid://cfwtw56b47n84" path="res://assets/sprites/botones/nivel 1.png" id="4_um1g6"]
 [ext_resource type="Texture2D" uid="uid://dp64wkn6jfcn8" path="res://assets/sprites/botones/clinica .png" id="5_6217b"]
@@ -48,7 +47,6 @@ offset_left = 474.0
 offset_top = 972.0
 offset_right = 719.0
 offset_bottom = 1097.0
-texture_normal = ExtResource("3_mxiii")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -69,7 +67,6 @@ offset_left = 481.0
 offset_top = 395.0
 offset_right = 726.0
 offset_bottom = 520.0
-texture_normal = ExtResource("3_mxiii")
 ignore_texture_size = true
 stretch_mode = 0
 

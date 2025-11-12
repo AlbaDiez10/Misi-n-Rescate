@@ -3,8 +3,6 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Global.nivel1 = "activado"
-	Global.guardar_datos()
 	for boton in get_children():
 		if boton is TextureButton and boton.texture_normal:
 			var bitmap := BitMap.new()
