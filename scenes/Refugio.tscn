@@ -54,10 +54,10 @@ expand_mode = 5
 
 [node name="Dana" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 727.0
-offset_right = 16.0
-offset_bottom = 751.0
+offset_left = 139.0
+offset_top = 668.0
+offset_right = 152.0
+offset_bottom = 692.0
 scale = Vector2(31.0023, 14.5925)
 texture_normal = ExtResource("3_70c5k")
 ignore_texture_size = true
