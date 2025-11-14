@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c77l2jinysuuf"]
+[gd_scene load_steps=19 format=3 uid="uid://c77l2jinysuuf"]
 
 [ext_resource type="Script" path="res://scripts/Refugio.gd" id="1_88jmh"]
 [ext_resource type="Texture2D" uid="uid://cpauyuxkhy83k" path="res://assets/fondo mascota.png" id="2_w4sqw"]
@@ -12,7 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://bofse4iytk2cn" path="res://assets/sprites/botones/Boton_Salud.png" id="9_q2erh"]
 [ext_resource type="Texture2D" uid="uid://baxmbd8papqi3" path="res://assets/sprites/botones/Boton_adopcion.png" id="11_q6bnm"]
 [ext_resource type="Texture2D" uid="uid://ch1x5233gk774" path="res://assets/sprites/Botones apretados o descativados/adopcion no.png" id="12_i5fgw"]
+[ext_resource type="AudioStream" uid="uid://cnshtv7ajr8ax" path="res://sounds/effect_sound/comer.wav" id="13_dkjo7"]
 [ext_resource type="Texture2D" uid="uid://d2l3y3hj2cid" path="res://assets/sprites/Dana/historia_Dana.png" id="13_jigat"]
+[ext_resource type="AudioStream" uid="uid://brbraeshnevbr" path="res://sounds/effect_sound/bañarse.wav" id="14_b6h55"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5t3fi"]
 atlas = ExtResource("7_ukfe1")
@@ -175,6 +177,7 @@ offset_left = -55.0
 offset_top = 820.0
 offset_right = 209.0
 offset_bottom = 1008.0
+disabled = true
 texture_normal = ExtResource("9_q2erh")
 ignore_texture_size = true
 stretch_mode = 0
@@ -218,6 +221,12 @@ offset_bottom = 958.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_1nwjd")
 show_percentage = false
 
+[node name="SonidoComer" type="AudioStreamPlayer2D" parent="Menu"]
+stream = ExtResource("13_dkjo7")
+
+[node name="SonidoBanarse" type="AudioStreamPlayer2D" parent="Menu"]
+stream = ExtResource("14_b6h55")
+
 [node name="Historia" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -238,10 +247,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -89.0
-offset_top = 83.0
-offset_right = 103.0
-offset_bottom = -115.0
+offset_left = -39.0
+offset_top = 128.0
+offset_right = 36.0
+offset_bottom = -193.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_jigat")
@@ -254,10 +263,10 @@ anchor_left = 0.853
 anchor_top = 0.304
 anchor_right = 0.853
 anchor_bottom = 0.304
-offset_left = -508.477
-offset_top = 534.16
-offset_right = -337.477
-offset_bottom = 607.16
+offset_left = -134.477
+offset_top = 475.16
+offset_right = 39.523
+offset_bottom = 569.16
 texture_normal = ExtResource("5_id3oy")
 ignore_texture_size = true
 stretch_mode = 0

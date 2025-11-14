@@ -6,6 +6,8 @@ extends Control
 @onready var boton_antidoto = $Boton_antidoto
 @onready var boton_salud_clinica = $Boton_salud_clinica # Botón permanente (ej. "Dar Atención Médica")
 @onready var boton_menu_principal = $Boton_Menu_princiál # Asegúrate de que este nodo exista
+@onready var ficha_medica_button = $Boton_Ficha_medica
+@onready var ficha_medica = $Ficha_Medica
 
 # Duraciones de animaciones (en segundos)
 const TIEMPO_SUERO := 2.5 # Puedes ajustar este valor
@@ -184,3 +186,18 @@ func _esta_en_cooldown() -> bool:
 # ------------------------------------------------------------
 func _on_menu_princil_pressed():
 	get_tree().change_scene_to_file("res://scenes/Menu_niveles.tscn")
+
+
+func _on_boton_ficha_medica_pressed():
+	ficha_medica.visible = true
+	boton_antidoto.visible = false
+	boton_menu_principal.visible = false
+
+func _on_cerrar_pressed():
+	ficha_medica.visible = false
+
+	# Evaluar si el antídoto sigue pendiente
+	var antidoto_pendiente = not Global.clinica_flags["antidoto_aplicado"]
+
+	boton_antidoto.visible = antidoto_pendiente
+	boton_menu_principal.visible = true

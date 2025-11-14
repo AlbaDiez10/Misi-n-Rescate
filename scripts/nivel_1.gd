@@ -75,8 +75,8 @@ func transicion_fondo3():
 	var tween = get_tree().create_tween()
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(rescatedana2, "modulate:a", 1.0, 4.0)
-	tween.tween_property(rescatedana, "modulate:a", 0.0, 4.0)
+	tween.tween_property(rescatedana2, "modulate:a", 1.0, 3.0)
+	tween.tween_property(rescatedana, "modulate:a", 1.0, 3.0)
 	await tween.finished
 
 	label2.visible = true
@@ -109,6 +109,6 @@ func _on_texture_button_2_pressed():
 			"salud": 10.0    # 10%
 		}
 	
-	Global.nivel1 = "desactivado" # Desactivamos el nivel para que no se repita
+	Global.nivel1 = "desactivado" 
 	Global.guardar_datos()
 	get_tree().change_scene_to_file("res://scenes/Refugio.tscn")

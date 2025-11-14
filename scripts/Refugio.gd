@@ -20,20 +20,14 @@ const TIEMPO_BANARSE := 3.0
 # Referencias a botones de acción
 @onready var boton_comida = $"Menu/Boton_Comida"
 @onready var boton_banarse = $"Menu/Boton_Bañarse"
+@onready var sonido_comer = $"Menu/SonidoComer"
+@onready var sonido_banarse = $Menu/SonidoBanarse
 
 var animals : Dictionary = {}
 
 func _ready():
-	if not Global.stats_animales.has("Dana"):
-		print("Dana no ha sido rescatada, ocultando UI.")
-		boton_dana.visible = false
-		panel_menu.visible = false
-		# Opcional: Ocultar barras si no queremos verlas
-		barra_comida.visible = false
-		barra_banarse.visible = false
-		barra_salud.visible = false
-		return # Detenemos la ejecución si no hay Dana
-	# asegurar keys unificadas
+	Global.cargar_datos()
+	print("🔎 Global.nivel1 =", Global.nivel1)
 	Global._load() if Engine.is_editor_hint() else null
 	_aplicar_click_masks(self)
 
@@ -134,18 +128,15 @@ func register_animal(id: String, bars: Dictionary, max_values: Dictionary, rates
 		"current": {} # no usado para lógica centralizada
 	}
 
-
-
-
 # BOTONES: usan Global.modify_stat()
 func _on_comida_pressed():
-	Global.modify_stat("Dana", "comida", 15.0)
+	Global.modify_stat("Dana", "comida", 25.0)
 	_actualizar_ui_desde_global()
 	_bloquear_botones(true)
 	actualizar_imagen_dana("comiendo")
 
 	# 🔊 Lugar reservado para sonido de comer
-	# $SonidoComer.play()
+	sonido_comer.play()
 
 	await get_tree().create_timer(TIEMPO_COMER).timeout
 	_bloquear_botones(false)
@@ -158,8 +149,8 @@ func _on_agua_pressed():
 	actualizar_imagen_dana("banandose")
 
 	# 🔊 Lugar para sonido de baño
-	# $SonidoBanarse.play()
-	#await get_tree().create_timer(TIEMPO_COMER).timeout # Espera 2.5 segundos
+	sonido_banarse.play()
+	await get_tree().create_timer(TIEMPO_COMER).timeout # Espera 2.5 segundos
 	_bloquear_botones(false)
 	actualizar_imagen_dana()
 
@@ -280,7 +271,3 @@ func _cambiar_textura_dana(ruta: String):
 		if has_node("Menu/Dana2"):
 			$"Menu/Dana2".texture_normal = tex
 
-
-# -------------------------
-# ANIMACIONES DE ACCIONES (comer, bañarse)
-# -------------------------

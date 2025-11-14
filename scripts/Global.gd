@@ -1,15 +1,15 @@
 extends Node
 
 # 🐾 DATOS GLOBALES
-var nivel1: String = "desactivado"
+var nivel1: String = "activado"
 
 # Diccionario con estadísticas de animales
 var stats_animales: Dictionary = {}
 
 # Tasas de reducción (por segundo)
 var rates: Dictionary = {
-	"comida": 0.1,
-	"banarse": 0.1,
+	"comida": 0.0023148,
+	"banarse": 0.0011574,
 	"salud": 0.0 # la salud no baja sola, depende de las otras
 }
 
@@ -57,7 +57,7 @@ func _ready():
 # ------------------------------
 # 🔹 Inicializa los animales (si no existen)
 func _inicializar_animales():
-	if not stats_animales.has("Dana") and nivel1 != "desactivado":
+	if not stats_animales.has("Dana") and nivel1 == "desactivado":
 		stats_animales["Dana"] = {
 			"comida": 50.0,  # 50%
 			"banarse": 70.0, # 70%
@@ -92,28 +92,33 @@ func _on_stat_timer_timeout():
 		# Reducción natural de comida y baño
 		s["comida"] = maxf(s["comida"] - rates.get("comida", 0.0), 0.0)
 		s["banarse"] = maxf(s["banarse"] - rates.get("banarse", 0.0), 0.0)
-		
-# 2. 🔸 CÁLCULO DEL DÉFICIT TOTAL (COMIDA + BAÑO + EMERGENCIA) 🔸
+		# -------------------------------------------------------
+		# 2) 🔸 CÁLCULO DEL DÉFICIT TOTAL DE SALUD (SIMPLE)
+		# -------------------------------------------------------
 		var deficit = 0.0
-		
-		# A. Déficit por estadísticas bajas (Comida y Baño)
+
+		# A — Si comida baja, afecta salud
 		if s["comida"] < 50.0:
 			deficit += (50.0 - s["comida"]) * 0.03
+
+		# B — Si baño bajo, también afecta salud
 		if s["banarse"] < 50.0:
 			deficit += (50.0 - s["banarse"]) * 0.02
-		
-		# B. Déficit extra por Emergencia/Envenenamiento
-		if not clinica_flags["suero_aplicado"] and not clinica_flags["antidoto_aplicado"]:
-			# Aplicar la penalidad extra de 0.5 por segundo
-			deficit += 0.5 
-			
-		# 3. Aplicar el DÉFICIT TOTAL a la salud
+
+		# C — Penalidad extra por emergencia (suero/antídoto no aplicados)
+		if not clinica_flags.get("suero_aplicado", false) and not clinica_flags.get("antidoto_aplicado", false):
+			deficit += 0.5  # penalidad fuerte
+
+		# 3) Aplicar disminución de salud
 		s["salud"] = clampf(s["salud"] - deficit, 0.0, max_values["salud"])
 
-	# Guardar cada 10 segundos
+		stats_animales[animal_id] = s
+
+	# Guardado periódico
 	if tiempo_acumulado >= 10.0:
 		guardar_datos()
 		tiempo_acumulado = 0.0
+
 
 
 # ------------------------------
@@ -212,17 +217,4 @@ func modify_stat(animal_id: String, stat_name: String, delta: float):
 
 # Global.gd
 
-# ------------------------------
-# 🧪 FUNCIÓN DE PRUEBA: Resetear la Clínica
-# ------------------------------
-func resetear_clinica_para_prueba():
-	# Establece todos los flags de la secuencia de emergencia a 'false'
-	clinica_flags["dana_atendida_primera_vez"] = false
-	clinica_flags["suero_aplicado"] = false
-	clinica_flags["antidoto_aplicado"] = false
-	
-	# Opcional: Para ver el efecto de la emergencia, resetea la salud
-	# stats_animales["Dana"]["salud"] = 10.0 
-	
-	guardar_datos()
-	print("✅ Clínica reseteada a estado inicial de emergencia. Debes reiniciar la escena.")
+

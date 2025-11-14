@@ -1,15 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://yad1dqnrtwnn"]
+[gd_scene load_steps=11 format=3 uid="uid://yad1dqnrtwnn"]
 
 [ext_resource type="Script" path="res://scripts/refugios.gd" id="1_uhyoj"]
 [ext_resource type="Texture2D" uid="uid://c7ihdd7mk6461" path="res://assets/sprites/botones/Botones_Refugios.png" id="2_k0njx"]
+[ext_resource type="Texture2D" uid="uid://dnesxjrtjwbbr" path="res://assets/sprites/botones/Menu_principal.png" id="3_0lqe7"]
+[ext_resource type="FontFile" uid="uid://dflf6hi73clnm" path="res://assets/font/retropix.otf/retropix.otf" id="4_rmq52"]
+[ext_resource type="Texture2D" uid="uid://d0aq0l84oaxhg" path="res://assets/sprites/botones/Boton_Click.png" id="5_f7wal"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_telaa"]
 atlas = ExtResource("2_k0njx")
-region = Rect2(113.25, 1040.84, 210, 202.5)
+region = Rect2(564.75, 1114.31, 205.5, 207)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ltme"]
 atlas = ExtResource("2_k0njx")
-region = Rect2(119.813, 2.347, 212.625, 191.771)
+region = Rect2(128.25, 2.347, 193.5, 191.771)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ty7sk"]
 atlas = ExtResource("2_k0njx")
@@ -17,7 +20,11 @@ region = Rect2(116.25, 785.329, 202.5, 198)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y74l5"]
 atlas = ExtResource("2_k0njx")
-region = Rect2(116.25, 529.729, 210, 204)
+region = Rect2(119.25, 1300.9, 208.161, 226.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cljdw"]
+atlas = ExtResource("2_k0njx")
+region = Rect2(136.771, 270.284, 188, 184)
 
 [node name="Refugios" type="Control"]
 layout_mode = 3
@@ -39,41 +46,185 @@ color = Color(0.917647, 0.721569, 0.533333, 1)
 
 [node name="TextureButton" type="TextureButton" parent="ColorRect"]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 336.0
-offset_right = 268.0
-offset_bottom = 538.0
+offset_left = 45.0
+offset_top = 80.0
+offset_right = 213.0
+offset_bottom = 260.0
+disabled = true
 texture_normal = SubResource("AtlasTexture_telaa")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="TextureButton2" type="TextureButton" parent="ColorRect"]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 111.0
-offset_right = 256.0
-offset_bottom = 295.0
+offset_left = 45.0
+offset_top = 900.0
+offset_right = 213.0
+offset_bottom = 1092.0
 texture_normal = SubResource("AtlasTexture_1ltme")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="TextureButton3" type="TextureButton" parent="ColorRect"]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 819.0
-offset_right = 265.0
-offset_bottom = 1033.0
+offset_left = 45.0
+offset_top = 488.0
+offset_right = 225.0
+offset_bottom = 668.0
+disabled = true
 texture_normal = SubResource("AtlasTexture_ty7sk")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="TextureButton4" type="TextureButton" parent="ColorRect"]
 layout_mode = 0
-offset_left = 39.0
-offset_top = 582.0
-offset_right = 277.0
-offset_bottom = 769.0
+offset_left = 45.0
+offset_top = 283.0
+offset_right = 225.0
+offset_bottom = 463.0
+disabled = true
 texture_normal = SubResource("AtlasTexture_y74l5")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton5" type="TextureButton" parent="ColorRect"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 706.0
+offset_right = 216.0
+offset_bottom = 868.0
+disabled = true
+texture_normal = SubResource("AtlasTexture_cljdw")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Menu_princiál" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 96.0
+offset_top = 1024.0
+offset_right = 357.0
+offset_bottom = 1435.0
+grow_horizontal = 2
+texture_normal = ExtResource("3_0lqe7")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+offset_left = 236.0
+offset_top = 101.0
+offset_right = 530.0
+offset_bottom = 240.0
+theme_override_colors/font_color = Color(0.227451, 0.14902, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_rmq52")
+theme_override_font_sizes/font_size = 27
+text = " Animate, rescatá o adoptá.
+ Buenos Aires - Argentina
+ Mira nuestas “Charlas con  huella”"
+autowrap_mode = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 227.0
+offset_top = 724.0
+offset_right = 548.0
+offset_bottom = 870.0
+theme_override_colors/font_color = Color(0.227451, 0.14902, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_rmq52")
+theme_override_font_sizes/font_size = 27
+text = "Rescate, recuperación y adopción de animales  NO tenemos refugio.
+La Plata"
+autowrap_mode = 1
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 233.0
+offset_top = 521.0
+offset_right = 695.0
+offset_bottom = 645.0
+theme_override_colors/font_color = Color(0.227451, 0.14902, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_rmq52")
+theme_override_font_sizes/font_size = 27
+text = "La Plata, Buenos Aires.
+Ayúdanos con tu donación 
+•No tenemos refugio"
+autowrap_mode = 1
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 218.0
+offset_top = 305.0
+offset_right = 539.0
+offset_bottom = 510.0
+theme_override_colors/font_color = Color(0.227451, 0.14902, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_rmq52")
+theme_override_font_sizes/font_size = 27
+text = "Tu ayuda lo hace posible 
+ Rescate, refugio, recuperación y adopción
+Lugano. CABA. argentina
+100% a beneficio @tiendagapra"
+autowrap_mode = 1
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 218.0
+offset_top = 919.0
+offset_right = 536.0
+offset_bottom = 1151.0
+theme_override_colors/font_color = Color(0.227451, 0.14902, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_rmq52")
+theme_override_font_sizes/font_size = 27
+text = "Somos el hogar de 400 perros. Más de 100 son perros con 
+discapacidad. 
+#AdoptáNoCompres
+Para colaborar o adoptar"
+autowrap_mode = 1
+
+[node name="Pichichos_al_rescate" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 78.0
+offset_right = 726.0
+offset_bottom = 262.0
+texture_normal = ExtResource("5_f7wal")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="El_campito_refugio" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 914.0
+offset_right = 726.0
+offset_bottom = 1098.0
+texture_normal = ExtResource("5_f7wal")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Huellitas" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 692.0
+offset_right = 726.0
+offset_bottom = 876.0
+texture_normal = ExtResource("5_f7wal")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Rescatistas_La_Plata" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 471.0
+offset_right = 726.0
+offset_bottom = 655.0
+texture_normal = ExtResource("5_f7wal")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="GAPRA_refugio" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 294.0
+offset_right = 726.0
+offset_bottom = 478.0
+texture_normal = ExtResource("5_f7wal")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -81,3 +232,9 @@ stretch_mode = 5
 [connection signal="pressed" from="ColorRect/TextureButton2" to="." method="_on_texture_button_2_pressed"]
 [connection signal="pressed" from="ColorRect/TextureButton3" to="." method="_on_texture_button_3_pressed"]
 [connection signal="pressed" from="ColorRect/TextureButton4" to="." method="_on_texture_button_4_pressed"]
+[connection signal="pressed" from="Menu_princiál" to="." method="_on_menu_princil_pressed"]
+[connection signal="pressed" from="Pichichos_al_rescate" to="." method="_on_pichichos_al_rescate_pressed"]
+[connection signal="pressed" from="El_campito_refugio" to="." method="_on_el_campito_refugio_pressed"]
+[connection signal="pressed" from="Huellitas" to="." method="_on_huellitas_pressed"]
+[connection signal="pressed" from="Rescatistas_La_Plata" to="." method="_on_rescatistas_la_plata_pressed"]
+[connection signal="pressed" from="GAPRA_refugio" to="." method="_on_gapra_refugio_pressed"]

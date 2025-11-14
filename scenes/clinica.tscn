@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cmsrvm3g0md55"]
+[gd_scene load_steps=14 format=3 uid="uid://cmsrvm3g0md55"]
 
 [ext_resource type="Texture2D" uid="uid://cfjldetwwqu0m" path="res://assets/sprites/clinica.png" id="1_1wcae"]
 [ext_resource type="Script" path="res://scripts/clinica.gd" id="1_au8xu"]
@@ -7,8 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://dnesxjrtjwbbr" path="res://assets/sprites/botones/Menu_principal.png" id="5_vgasl"]
 [ext_resource type="Texture2D" uid="uid://b7pptg7shkgno" path="res://assets/sprites/botones/Boton_Clinica.png" id="6_xka2h"]
 [ext_resource type="Texture2D" uid="uid://bxyi7siyb51nt" path="res://assets/sprites/botones/Boton_salud_clinica.png" id="7_5b58q"]
-[ext_resource type="Texture2D" uid="uid://ct68fwt4mepd8" path="res://assets/sprites/Dana/Dana Antidoto.png" id="7_p4mky"]
 [ext_resource type="Texture2D" uid="uid://c5j6rhh5o824r" path="res://assets/sprites/Dana/Dana_sentada.png" id="8_sfjrh"]
+[ext_resource type="Texture2D" uid="uid://cu627xwnhmdoi" path="res://assets/sprites/fichamedica.png" id="9_tf5q3"]
+[ext_resource type="Texture2D" uid="uid://d8w1aapywsjc" path="res://assets/sprites/botones/botoncerrar.png" id="10_la340"]
+[ext_resource type="FontFile" uid="uid://dflf6hi73clnm" path="res://assets/font/retropix.otf/retropix.otf" id="11_7jfqq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tpfig"]
 atlas = ExtResource("6_xka2h")
@@ -49,13 +51,13 @@ expand_mode = 5
 
 [node name="Boton_Ficha_medica" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 252.0
-offset_top = 297.0
-offset_right = 558.0
+offset_left = 300.0
+offset_top = 365.0
+offset_right = 490.0
 offset_bottom = 628.0
 texture_normal = ExtResource("3_cwih7")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Boton_Menu_princiál" type="TextureButton" parent="."]
 layout_mode = 1
@@ -78,16 +80,6 @@ offset_top = 917.0
 offset_right = 661.0
 offset_bottom = 1053.0
 texture_normal = SubResource("AtlasTexture_tpfig")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Boton_suero2" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 157.0
-offset_top = 43.0
-offset_right = 1103.0
-offset_bottom = 417.0
-texture_normal = ExtResource("7_p4mky")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -116,17 +108,59 @@ stretch_mode = 5
 
 [node name="Dana_clinica" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 167.0
-offset_top = 464.0
-offset_right = 180.0
-offset_bottom = 488.0
+offset_left = 175.0
+offset_top = 492.0
+offset_right = 188.0
+offset_bottom = 516.0
 scale = Vector2(31.0023, 14.5925)
 texture_normal = ExtResource("8_sfjrh")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="Ficha_Medica" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Ficha_Medica"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 11.314
+anchor_bottom = 10.889
+offset_left = -7.0
+offset_top = 208.0
+offset_right = 298.44
+offset_bottom = 730.44
+texture = ExtResource("9_tf5q3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="cerrar" type="TextureButton" parent="Ficha_Medica"]
+layout_mode = 0
+offset_left = 461.0
+offset_top = 468.0
+offset_right = 675.0
+offset_bottom = 556.0
+texture_normal = ExtResource("10_la340")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Ficha_Medica"]
+offset_left = 274.0
+offset_top = 477.0
+offset_right = 421.0
+offset_bottom = 557.0
+theme_override_colors/font_color = Color(0.227451, 0.14902, 0.117647, 1)
+theme_override_fonts/font = ExtResource("11_7jfqq")
+theme_override_font_sizes/font_size = 70
+text = "Dana
+"
+autowrap_mode = 1
+
+[connection signal="pressed" from="Boton_Ficha_medica" to="." method="_on_boton_ficha_medica_pressed"]
 [connection signal="pressed" from="Boton_Menu_princiál" to="." method="_on_menu_princil_pressed"]
 [connection signal="pressed" from="Boton_suero" to="." method="_on_boton_suero_pressed"]
-[connection signal="pressed" from="Boton_suero2" to="." method="_on_boton_suero_pressed"]
 [connection signal="pressed" from="Boton_salud_clinica" to="." method="_on_boton_salud_clinica_pressed"]
 [connection signal="pressed" from="Boton_antidoto" to="." method="_on_boton_antidoto_pressed"]
+[connection signal="pressed" from="Ficha_Medica/cerrar" to="." method="_on_cerrar_pressed"]
